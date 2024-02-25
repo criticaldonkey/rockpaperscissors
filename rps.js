@@ -9,14 +9,13 @@
 // tries variable++
 
 // respond to sbmit button
-const submitter = document.getElementById("submitbutton");
-submitter.addEventListener("click", compareResults(computerChooser, playerChooser));
+document.getElementById("submitbutton").addEventListener("click", announceResults);
 
 
-// log player choice
+// get player choice
 function playerChooser() {
     let chooser = document.getElementById("playerresponse");
-    console.log(chooser.value);
+   // console.log(chooser.value);
     switch (chooser.value) {
         case "choose":
             break;
@@ -51,7 +50,10 @@ function computerChooser() {
 // rerun the random generator
 // iterate
 
-function compareResults(computer, player) {
+function compareResults() {
+    let computer = computerChooser();
+    let player = playerChooser();
+        console.log(computer + " " + player);
         if (computer === player) {
             return ["tie", computer, player];
         } else if (computer=="Rock" && player=="Scissors") {
@@ -66,6 +68,22 @@ function compareResults(computer, player) {
     }
    
 
+function announceResults() {
+    let results = compareResults();
+    let resultpara = document.querySelector("#gameresult");
+    console.log(results);
+    if (results[0] === "tie") {
+        console.log(`It's a tie! You both chose ${results[1]}!`);
+        resultpara.textContent = `The computer chose ${results[1]}...It's a tie! You both chose ${results[1]}!`;
+    } else if (results[0] === "win") {
+        console.log(`Computer wins! ${results[1]} beats ${results[2]}!`);
+        resultpara.textContent = `The computer chose ${results[1]}...Computer wins! ${results[1]} beats ${results[2]}!`;
+    } else {
+        console.log(`You win! ${results[2]} beats ${results[1]}!`);
+        resultpara.textContent = `The computer chose ${results[1]}...You win! ${results[2]} beats ${results[1]}!`;
+    }
+    
+    }
 
 // function victory message(answerchecker)
 // if check return = win, sorry person you lose
