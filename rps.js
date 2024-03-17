@@ -1,51 +1,31 @@
 
 
-// floor rand num * 3
-// if one then rock
-// if two then paper
-// if three then scissors
-// store to variable as string
-// create tries variable = 0
-// tries variable++
-
-// respond to sbmit button
-document.getElementById("submitbutton").addEventListener("click", announceResults);
+// respond to submit button
+document.getElementById("buttonholder").addEventListener("click", (e) => {
+    const playerChoice = e.target.id;
+    console.log("Player choice: " + playerChoice);
+    results = compareResults(computerChooser(), playerChoice);
+    console.log(results);
+    announceResults(results);
+    }
+);
 let gamecount = 0;
 let computerscore = 0;
 let playerscore = 0;
 
-
-
-// get player choice
-function playerChooser() {
-    let chooser = document.getElementById("playerresponse");
-   // console.log(chooser.value);
-    switch (chooser.value) {
-        case "choose":
-            break;
-        case "Rock":
-            return "Rock";
-            break;
-        case "Paper":
-            return "Paper";
-            break;
-        case "Scissors":
-            return "Scissors";
-    }
-}
 
 // function to generate a random choice. 
 function computerChooser() {
     let numerical = Math.floor(Math.random()*3);
     switch (numerical) {
         case 0:
-            return "Rock";
+            return "rock";
             break;
         case 1:
-            return "Paper";
+            return "paper";
             break;
         case 2:
-            return "Scissors";
+            return "scissors";
     }
 
 }
@@ -54,17 +34,16 @@ function computerChooser() {
 // rerun the random generator
 // iterate
 
-function compareResults() {
-    let computer = computerChooser();
-    let player = playerChooser();
-        console.log(computer + " " + player);
+function compareResults(computer, player) {
+    
+        console.log("choices: (computer, player)" + computer + " " + player);
         if (computer === player) {
             return ["tie", computer, player];
-        } else if (computer=="Rock" && player=="Scissors") {
+        } else if (computer=="rock" && player=="scissors") {
             return ["win", computer, player];
-        } else if (computer=="Scissors" && player=="Paper") {
+        } else if (computer=="scissors" && player=="paper") {
             return ["win", computer, player];
-        } else if (computer=="Paper" && player=="Rock") {
+        } else if (computer=="paper" && player=="rock") {
             return ["win", computer, player];
         } else {
             return ["lose", computer, player];
@@ -72,10 +51,8 @@ function compareResults() {
     }
    
 
-function announceResults() {
-    let results = compareResults();
+function announceResults(results) {
     let resultpara = document.querySelector("#gameresult");
-    console.log(results);
     if (results[0] === "tie") {
         console.log(`It's a tie! You both chose ${results[1]}!`);
         resultpara.textContent = `The computer chose ${results[1]}...It's a tie! You both chose ${results[1]}!`;
@@ -84,19 +61,21 @@ function announceResults() {
         resultpara.textContent = `The computer chose ${results[1]}...Computer wins! ${results[1]} beats ${results[2]}!`;
         computerscore++;
         document.getElementById("computer").textContent = computerscore;
-    } else {
+    } else if (results[0] === "lose") {
         console.log(`You win! ${results[2]} beats ${results[1]}!`);
         resultpara.textContent = `The computer chose ${results[1]}...You win! ${results[2]} beats ${results[1]}!`;
         playerscore++;
         document.getElementById("player").textContent = playerscore;
+    } else {
+        console.log("error");
     }
 }
 
-function autoplay() {
-    for (let i = 0; i < 5; i++) {
-        announceResults();
-    }
-}
+// function autoplay() {
+//     for (let i = 0; i < 5; i++) {
+//         announceResults();
+//     }
+// }
 
 // function victory message(answerchecker)
 // if check return = win, sorry person you lose
