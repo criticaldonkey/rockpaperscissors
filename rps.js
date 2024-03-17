@@ -10,6 +10,10 @@
 
 // respond to sbmit button
 document.getElementById("submitbutton").addEventListener("click", announceResults);
+let gamecount = 0;
+let computerscore = 0;
+let playerscore = 0;
+
 
 
 // get player choice
@@ -78,12 +82,21 @@ function announceResults() {
     } else if (results[0] === "win") {
         console.log(`Computer wins! ${results[1]} beats ${results[2]}!`);
         resultpara.textContent = `The computer chose ${results[1]}...Computer wins! ${results[1]} beats ${results[2]}!`;
+        computerscore++;
+        document.getElementById("computer").textContent = computerscore;
     } else {
         console.log(`You win! ${results[2]} beats ${results[1]}!`);
         resultpara.textContent = `The computer chose ${results[1]}...You win! ${results[2]} beats ${results[1]}!`;
+        playerscore++;
+        document.getElementById("player").textContent = playerscore;
     }
-    
+}
+
+function autoplay() {
+    for (let i = 0; i < 5; i++) {
+        announceResults();
     }
+}
 
 // function victory message(answerchecker)
 // if check return = win, sorry person you lose
